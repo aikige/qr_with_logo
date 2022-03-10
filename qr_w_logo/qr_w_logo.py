@@ -3,12 +3,12 @@
 import qrcode
 from PIL import Image
 
-def encode_qr_with_logo(body, logo_filename, output_filename, transparent=False):
+def encode_qr_with_logo(body, logo_filename, output_filename, transparent=False, size=60, version=None):
     logo = Image.open(logo_filename)
-    logo = logo.resize((60,60)).convert('RGBA')
+    logo = logo.resize((size,size)).convert('RGBA')
     qr_output = qrcode.QRCode(
-        error_correction=qrcode.constants.ERROR_CORRECT_H
-    )
+            version=version,
+            error_correction=qrcode.constants.ERROR_CORRECT_H)
     qr_output.add_data(body)
     qr_output.make()
     img_qr_big = qr_output.make_image().convert('RGBA')
@@ -26,6 +26,8 @@ def main():
     parser.add_argument('-l', '--logo-filename', default='logo.png')
     parser.add_argument('-i', '--input-filename', default=None)
     parser.add_argument('-t', '--transparent', action='store_true')
+    parser.add_argument('-s', '--size', type=int, default=60)
+    parser.add_argument('-v', '--version', type=int, default=None)
     parser.add_argument('body', nargs='?', default=None)
     opt = parser.parse_args()
     if opt.input_filename:
@@ -35,7 +37,7 @@ def main():
         body = opt.body
     if body is None:
         raise RuntimeError('Body should be supplied')
-    encode_qr_with_logo(body, opt.logo_filename, opt.output_filename, opt.transparent)
+    encode_qr_with_logo(body, opt.logo_filename, opt.output_filename, opt.transparent, opt.size, opt.version)
 
 if __name__ == "__main__":
     main()
