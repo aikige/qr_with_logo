@@ -24,9 +24,18 @@ def main():
     parser = argparse.ArgumentParser(description='Create QR code with logo')
     parser.add_argument('-o', '--output-filename', default='output.png')
     parser.add_argument('-l', '--logo-filename', default='logo.png')
-    parser.add_argument('body')
+    parser.add_argument('-i', '--input-filename', default=None)
+    parser.add_argument('-t', '--transparent', action='store_true')
+    parser.add_argument('body', nargs='?', default=None)
     opt = parser.parse_args()
-    encode_qr_with_logo(opt.body, opt.logo_filename, opt.output_filename)
+    if opt.input_filename:
+        with open(opt.input_filename) as f:
+            body = f.read()
+    else:
+        body = opt.body
+    if body is None:
+        raise RuntimeError('Body should be supplied')
+    encode_qr_with_logo(body, opt.logo_filename, opt.output_filename, opt.transparent)
 
 if __name__ == "__main__":
     main()
