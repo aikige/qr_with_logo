@@ -7,7 +7,7 @@ Python code to generate QR code with logo inside.
 Please install this with `pip` command.
 
 ```
-pip install -e git+https://github.com/aikige/qr_with_logo.git
+pip install git+https://github.com/aikige/qr_with_logo.git
 ```
 
 ## Synopsis
