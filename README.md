@@ -28,7 +28,17 @@ For those who is simply want to generate QR code, please use `qr` command distri
 - **-l** *LOGO_FILENAME* &mdash; this is used to specify file which contains logo data.
 - **-i** *INPUT_FILENAME* &mdash; if `-i` option is set, script reads text from the file and use as contents of QR code.
 - **-t** &mdash; when this option is set, transparent part in logo are kept transparent, otherwise black background is used for logo area.
-- **-s** *SIZE* &mdash; this option is used to change size of logo (in pixel), by default 60px is used as size of logo.
+- **-s** *SIZE* &mdash; this option is used to change size of logo (in pixel), by default 25% of QR Code size is used as size of logo.
 - **-v** *VERSION* &mdash; "version" means size of QR code ([reference](https://www.keyence.com/ss/products/auto_id/codereader/basic_2d/qr.jsp)), this option can be used to change size of QR code. By default, version is determined based on input data.
 
 Either of *BODY* or **-i** option shall be set to run this script.
+
+## Note
+
+This module sets QR Code error correction level to Q, in this case error correction capability is approximately 25%.
+
+By default, this script draws logo using 25% of QR code width, this means 6.25% of QR code modules are hidden by logo and this is within the ratio can be corrected by error correction.
+
+## Reference
+
+- QRCode.com > [Error Correction Feature](https://www.qrcode.com/en/about/error_correction.html)

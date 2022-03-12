@@ -3,15 +3,18 @@
 import qrcode
 from PIL import Image
 
-def encode_qr_with_logo(body, logo_filename, output_filename, transparent=False, size=60, version=None):
+def encode_qr_with_logo(body, logo_filename, output_filename, transparent=False, size=0, version=None):
     logo = Image.open(logo_filename)
-    logo = logo.resize((size,size)).convert('RGBA')
     qr_output = qrcode.QRCode(
             version=version,
-            error_correction=qrcode.constants.ERROR_CORRECT_H)
+            error_correction=qrcode.constants.ERROR_CORRECT_Q)
     qr_output.add_data(body)
     qr_output.make()
     img_qr_big = qr_output.make_image().convert('RGBA')
+    if size == 0:
+        MARGIN_WIDTH = 40   # 4 modules
+        size = (img_qr_big.width - (MARGIN_WIDTH * 2)) // 4
+    logo = logo.resize((size,size)).convert('RGBA')
     pos = ((img_qr_big.size[0] - logo.size[0]) // 2, (img_qr_big.size[1] - logo.size[1]) // 2)
     if transparent:
         img_qr_big.paste(logo, pos, logo)
@@ -26,7 +29,7 @@ def main():
     parser.add_argument('-l', '--logo-filename', default='logo.png')
     parser.add_argument('-i', '--input-filename', default=None)
     parser.add_argument('-t', '--transparent', action='store_true')
-    parser.add_argument('-s', '--size', type=int, default=60)
+    parser.add_argument('-s', '--size', type=int, default=0)
     parser.add_argument('-v', '--version', type=int, default=None)
     parser.add_argument('body', nargs='?', default=None)
     opt = parser.parse_args()
