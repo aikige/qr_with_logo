@@ -37,7 +37,7 @@ Either of *BODY* or **-i** option shall be set to run this script.
 
 This module sets QR Code error correction level to Q, in this case error correction capability is approximately 25%.
 
-By default, this script draws logo using 25% of QR code width, this means 6.25% of QR code modules are hidden by logo and this is within the ratio can be corrected by error correction.
+By default, this script draws logo using 25% of QR code width, this means 6.25% of QR code modules are hidden by the logo and this is within the ratio can be corrected by error correction.
 
 ## Reference
 
