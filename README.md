@@ -14,7 +14,7 @@ pip install git+https://github.com/aikige/qr_with_logo.git
 
 ## Synopsis
 
-> **qr_with_logo** \[**-h**\] \[**-o** *OUTPUT_FILENNAME*\] \[**-l** *LOGO_FILENAME*\] \[**-i** *INPUT_FILENAME*\] \[**-t**\] \[**-s** *SIZE*\] \[**-v** *VERSION*\] \[*BODY*\]
+> **qr_with_logo** \[**-h**\] \[**-o** *OUTPUT_FILENNAME*\] \[**-l** *LOGO_FILENAME*\] \[**-i** *INPUT_FILENAME*\] \[**-t**\] \[**-s** *SIZE*\] \[**-v** *VERSION*\] \[**-b** *BG_COLOR*\] \[*BODY*\]
 
 ## Description
 
@@ -32,6 +32,7 @@ For those who is simply want to generate QR code, please use `qr` command distri
 - **-t** &mdash; when this option is set, transparent part in logo are kept transparent, otherwise black background is used for logo area.
 - **-s** *SIZE* &mdash; this option is used to change size of logo (in pixel), by default 25% of QR Code size is used as size of logo.
 - **-v** *VERSION* &mdash; "version" means size of QR code ([reference](https://www.keyence.com/ss/products/auto_id/codereader/basic_2d/qr.jsp)), this option can be used to change size of QR code. By default, version is determined based on input data.
+- **-b** *BG_COLOR* &mdash; this option specifies background color used for QR code.
 
 Either of *BODY* or **-i** option shall be set to run this script.
 
