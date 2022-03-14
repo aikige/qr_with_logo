@@ -9,7 +9,7 @@ def encode_qr_with_logo(body, logo_filename, output_filename, transparent=False,
             error_correction=qrcode.constants.ERROR_CORRECT_Q)
     qr.add_data(body)
     qr.make()
-    qr_image = qr.make_image().convert('RGBA')
+    qr_image = qr.make_image().convert('RGB')
     if size == 0:
         MARGIN_WIDTH = 40   # 4 modules
         size = (qr_image.width - (MARGIN_WIDTH * 2)) // 4
