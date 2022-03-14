@@ -2,6 +2,8 @@
 
 Python code to generate QR code with logo inside.
 
+![Sample](img/sample.png)
+
 ## Install
 
 Please install this with `pip` command.

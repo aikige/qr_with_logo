@@ -4,23 +4,23 @@ import qrcode
 from PIL import Image
 
 def encode_qr_with_logo(body, logo_filename, output_filename, transparent=False, size=0, version=None):
-    logo = Image.open(logo_filename)
-    qr_output = qrcode.QRCode(
+    qr = qrcode.QRCode(
             version=version,
             error_correction=qrcode.constants.ERROR_CORRECT_Q)
-    qr_output.add_data(body)
-    qr_output.make()
-    img_qr_big = qr_output.make_image().convert('RGBA')
+    qr.add_data(body)
+    qr.make()
+    qr_image = qr.make_image().convert('RGBA')
     if size == 0:
         MARGIN_WIDTH = 40   # 4 modules
-        size = (img_qr_big.width - (MARGIN_WIDTH * 2)) // 4
-    logo = logo.resize((size,size)).convert('RGBA')
-    pos = ((img_qr_big.size[0] - logo.size[0]) // 2, (img_qr_big.size[1] - logo.size[1]) // 2)
+        size = (qr_image.width - (MARGIN_WIDTH * 2)) // 4
+    logo = Image.open(logo_filename).convert('RGBA')
+    logo = logo.resize((size,size), resample=Image.LANCZOS)
+    pos = ((qr_image.size[0] - logo.size[0]) // 2, (qr_image.size[1] - logo.size[1]) // 2)
     if transparent:
-        img_qr_big.paste(logo, pos, logo)
+        qr_image.paste(logo, pos, logo)
     else:
-        img_qr_big.paste(logo, pos)
-    img_qr_big.save(output_filename)
+        qr_image.paste(logo, pos)
+    qr_image.save(output_filename)
 
 def main():
     import argparse
