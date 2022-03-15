@@ -2,7 +2,7 @@
 
 Python code to generate QR code with logo inside.
 
-![Sample](img/sample.png)
+![qr_w_logo.py -o ..\img\sample.png -l GitHub-Mark-64px.png -f #555 "This is a Sample"](img/sample.png)
 
 ## Install
 
