@@ -3,13 +3,13 @@
 import qrcode
 from PIL import Image, ImageDraw
 
-def encode_qr_with_logo(body, logo_filename, output_filename, transparent=False, size=0, version=None, bg_color='white'):
+def encode_qr_with_logo(body, logo_filename, output_filename, transparent=False, size=0, version=None, bg_color='white', fg_color='black'):
     qr = qrcode.QRCode(
             version=version,
             error_correction=qrcode.constants.ERROR_CORRECT_Q)
     qr.add_data(body)
     qr.make()
-    qr_image = qr.make_image(back_color=bg_color).convert('RGB')
+    qr_image = qr.make_image(fill_color=fg_color, back_color=bg_color).convert('RGB')
     if size == 0:
         MARGIN_WIDTH = 40   # 4 modules
         size = (qr_image.width - (MARGIN_WIDTH * 2)) // 4
@@ -34,6 +34,7 @@ def main():
     parser.add_argument('-s', '--size', type=int, default=0)
     parser.add_argument('-v', '--version', type=int, default=None)
     parser.add_argument('-b', '--bg-color', default='white')
+    parser.add_argument('-f', '--fg-color', default='black')
     parser.add_argument('body', nargs='?', default=None)
     opt = parser.parse_args()
     if opt.input_filename:
@@ -44,7 +45,7 @@ def main():
     if body is None:
         raise RuntimeError('Body should be supplied')
     encode_qr_with_logo(body, opt.logo_filename, opt.output_filename,
-            opt.transparent, opt.size, opt.version, opt.bg_color)
+            opt.transparent, opt.size, opt.version, opt.bg_color, opt.fg_color)
 
 if __name__ == "__main__":
     main()
