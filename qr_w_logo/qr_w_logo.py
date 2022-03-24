@@ -14,7 +14,14 @@ def encode_qr_with_logo(body, logo_filename, output_filename, transparent=False,
         MARGIN_WIDTH = 40   # 4 modules
         size = (qr_image.width - (MARGIN_WIDTH * 2)) // 4
     logo = Image.open(logo_filename).convert('RGBA')
-    logo = logo.resize((size,size), resample=Image.LANCZOS)
+    (x, y) = logo.size
+    if x > y:
+        y = int(y * size / x)
+        x = size
+    else:
+        x = int(x * size / y)
+        y = size
+    logo = logo.resize((x,y), resample=Image.LANCZOS)
     pos = ((qr_image.size[0] - logo.size[0]) // 2, (qr_image.size[1] - logo.size[1]) // 2)
     if transparent:
         qr_image.paste(logo, pos, logo)
